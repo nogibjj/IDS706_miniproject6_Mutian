@@ -1,24 +1,20 @@
-rust-version:
-	@echo "Rust command-line utility versions:"
-	rustc --version 			#rust compiler
-	cargo --version 			#rust package manager
-	rustfmt --version			#rust code formatter
-	rustup --version			#rust toolchain manager
-	clippy-driver --version		#rust linter
-
-format:
-	cargo fmt --quiet
-
-lint:
-	cargo clippy --quiet
+deletetable:
+	sh mylib/delete_table.sh
+createtable:
+	sh mylib/create_table.sh
+install:
+	pip install --upgrade pip &&\
+		pip install -r requirements.txt
 
 test:
-	cargo test --quiet
+	python -m pytest -vv --cov=main --cov=mylib main.py
 
-run:
-	cargo run
+format:	
+	black *.py 
 
-release:
-	cargo build --release
+lint:
+	ruff check mylib/*.py
 
-all: format lint test run
+		
+all: install lint test format
+

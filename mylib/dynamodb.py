@@ -95,23 +95,6 @@ aws dynamodb delete-table \
 import boto3
 from boto3.dynamodb.conditions import Key
 
-
-def create_table(dynamodb=None):
-    if not dynamodb:
-        dynamodb = boto3.resource("dynamodb")
-
-    table = dynamodb.create_table(
-        TableName="customers",
-        KeySchema=[
-            {"AttributeName": "customer_id", "KeyType": "HASH"}  # Partition key
-        ],
-        AttributeDefinitions=[{"AttributeName": "customer_id", "AttributeType": "N"}],
-        ProvisionedThroughput={"ReadCapacityUnits": 5, "WriteCapacityUnits": 5},
-    )
-
-    return table
-
-
 def list_tables(dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource("dynamodb")
@@ -119,50 +102,51 @@ def list_tables(dynamodb=None):
     return dynamodb.tables.all()
 
 
-def put_item(dynamodb=None):
+def put_item(userid,name,age,dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource("dynamodb")
 
-    table = dynamodb.Table("customers")
-    response = table.put_item(Item={"customer_id": 1, "name": "John Doe"})
+    table = dynamodb.Table("MyTable")
+    response = table.put_item(Item={"UserID": userid, "Username": name,"Age":age})
 
     return response
 
 
-def get_item(dynamodb=None):
+def get_item(userid,dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource("dynamodb")
 
-    table = dynamodb.Table("customers")
-    response = table.get_item(Key={"customer_id": 1})
+    table = dynamodb.Table("MyTable")
+    response = table.get_item(Key={"UserID": userid})
 
     return response
 
 
-def update_item(dynamodb=None):
-    """Updates the name for customer_id = 1 to Jane Doe"""
+def update_item(userid,username,dynamodb=None):
+    """Updates the name for UserID = userid to username"""
 
     if not dynamodb:
         dynamodb = boto3.resource("dynamodb")
 
-    table = dynamodb.Table("customers")
+    table = dynamodb.Table("MyTable")
 
     response = table.update_item(
-        Key={"customer_id": 1},
+        Key={"UserID": userid},
         UpdateExpression="SET #name = :new_name",
-        ExpressionAttributeNames={"#name": "name"},
-        ExpressionAttributeValues={":new_name": "Jane Doe"},
+        ExpressionAttributeNames={"#name": "Username"},
+        ExpressionAttributeValues={":new_name": username},
         ReturnValues="UPDATED_NEW",
     )
+    return response
 
 
-def query_items(dynamodb=None):
+def query_items(userid,dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource("dynamodb")
 
-    table = dynamodb.Table("customers")
+    table = dynamodb.Table("MyTable")
 
-    response = table.query(KeyConditionExpression=Key("customer_id").eq(1))
+    response = table.query(KeyConditionExpression=Key("UserID").eq(userid))
 
     return response
 
@@ -171,18 +155,18 @@ def scan_items(dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource("dynamodb")
 
-    table = dynamodb.Table("customers")
+    table = dynamodb.Table("MyTable")
     response = table.scan()
 
     return response
 
 
-def delete_item(dynamodb=None):
+def delete_item(userid,dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource("dynamodb")
 
-    table = dynamodb.Table("customers")
-    response = table.delete_item(Key={"customer_id": 1})
+    table = dynamodb.Table("MyTable")
+    response = table.delete_item(Key={"UserID": userid})
 
     return response
 
@@ -191,7 +175,7 @@ def delete_table(dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource("dynamodb")
 
-    table = dynamodb.Table("customers")
+    table = dynamodb.Table("MyTable")
     table.delete()
 
     return table
