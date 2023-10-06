@@ -10,7 +10,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v3
+
+      - name: Set up AWS credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ AKIAUEHDS36NRLKDXPQ3 }}
+          AWS_SECRET_ACCESS_KEY: ${{ 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 }}
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          aws configure set default.region us-east-2  # 根据您的 AWS 区域设置
       - name: install packages
         run: make install
       - name: lint
