@@ -39,7 +39,8 @@ def inserdata():
 
 def complexQuery():
     # query the average age of those aged 30 or older
-    dynamodb = boto3.client("dynamodb")
+    rg =  'us-east-2' 
+    dynamodb = boto3.client("dynamodb",region_name=rg)
 
     table_name = "MyTable"
 
@@ -70,7 +71,3 @@ def complexQuery():
     else:
         print("No users aged > 30 found.")
 
-
-# inserdata()
-
-complexQuery()
