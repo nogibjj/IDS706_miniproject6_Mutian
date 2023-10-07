@@ -33,4 +33,8 @@ Makefile commands:
 
 `make test`
 
-`make run`
+`make createtable`
+
+`make deletetable`
+
+`make all`
