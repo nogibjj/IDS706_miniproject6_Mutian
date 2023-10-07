@@ -19,6 +19,18 @@ Complex Query. Because Aws Dynamodb is a NoSql database, it doesn't support comp
 
 <img width="772" alt="image" src="https://github.com/nogibjj/IDS706_miniproject6_Mutian/assets/108935314/f92df03b-1817-4ba8-a2cd-439e423c6e48">
 
-Result
+Expected result: 44.5
 
 <img width="328" alt="image" src="https://github.com/nogibjj/IDS706_miniproject6_Mutian/assets/108935314/d69fd51c-2063-4493-bb44-c02d2cdfe94e">
+
+# Run
+Makefile commands:
+`make install`
+
+`make format`
+
+`make lint`
+
+`make test`
+
+`make run`
