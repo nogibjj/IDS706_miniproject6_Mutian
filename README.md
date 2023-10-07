@@ -25,6 +25,7 @@ Expected result: 44.5
 
 # Run
 Makefile commands:
+
 `make install`
 
 `make format`
