@@ -1,5 +1,5 @@
 # Mini Porject 6 Design a complex SQL query for a MySQL database and explain the results.
-
+[![CI](https://github.com/nogibjj/IDS706_miniproject6_Mutian/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/IDS706_miniproject6_Mutian/actions/workflows/cicd.yml)
 # Project Description
 I used AWS SDK and AWS CLI to operate in AWS Dynamodb
  
